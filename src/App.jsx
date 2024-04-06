@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import { Menu, Navbar } from "./components";
+import { api } from "./config";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    api
+      .get(
+        `${import.meta.env.VITE_APP_API_URL}/category?place=${
+          import.meta.env.VITE_APP_API_PLACE_ID
+        }`
+      )
+      .then((result) => {
+        setCategories(result?.data?.rows);
+      })
+      .catch((err) => {
+        console.error("Error Happen", err);
+      });
+
+    return () => {};
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <Navbar />
+      <div className='container mx-2 md:mx-10 py-2'>
+        <div className='flex flex-wrap'>
+          <div className='hidden md:block md:w-1/5'>
+            <Menu menuList={categories} />
+          </div>
+          <div className='w-full md:w-4/5'></div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
