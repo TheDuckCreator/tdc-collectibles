@@ -1,5 +1,6 @@
 import _ from "lodash";
 import tdcgLogo from "../assets/tdcg.png";
+import TheethawatLogo from "../assets/TheethawatLogoNoSite.png";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 

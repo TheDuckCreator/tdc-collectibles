@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Routes, BrowserRouter, Route } from "react-router-dom";
 
-import { Menu, Navbar } from "./components";
+import { Menu, Navbar, Footer } from "./components";
 import { api } from "./config";
 import Page from "./pages";
 
@@ -29,7 +29,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar categories={categories} />
-        <div className='  mx-2 md:mx-10 py-2'>
+        <div className='  mx-2 md:mx-10 py-2 min-h-screen'>
           <div className='flex flex-wrap w-full'>
             <div className='hidden md:block md:w-1/5'>
               <Menu menuList={categories} />
@@ -49,6 +49,7 @@ function App() {
           </div>
         </div>
       </BrowserRouter>
+      <Footer />
     </div>
   );
 }
