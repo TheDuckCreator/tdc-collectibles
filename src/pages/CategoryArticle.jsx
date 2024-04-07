@@ -4,10 +4,12 @@ import { api } from "../config";
 import { ThumbnailList } from "../components";
 
 const CategoryArticle = () => {
-  const [page, setPage] = useState(1);
+  const page = 1;
   const [article, setArticles] = useState([]);
   const [categoryInfo, setCategoryInfo] = useState({});
   const [size, setSize] = useState(10);
+  const [total, setTotal] = useState(0);
+
   const params = useParams();
   useEffect(() => {
     api
@@ -18,6 +20,7 @@ const CategoryArticle = () => {
       )
       .then((result) => {
         setArticles(result?.data?.rows);
+        setTotal(result?.data?.total);
         api
           .get(`${import.meta.env.VITE_APP_API_URL}/category/${params.id}`)
           .then((categoryResult) => {
@@ -40,6 +43,18 @@ const CategoryArticle = () => {
         <hr />
       </div>
       <ThumbnailList articles={article} />
+      {size < total && (
+        <div className='flex justify-center my-4'>
+          <button
+            className='btn btn-wide btn-sm'
+            onClick={() => {
+              setSize(size + 10);
+            }}
+          >
+            โหลดเพิ่ม
+          </button>
+        </div>
+      )}
     </div>
   );
 };

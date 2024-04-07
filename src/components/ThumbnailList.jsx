@@ -11,15 +11,18 @@ function ThumbnailList({ articles }) {
             to={`/article/${each?._id}`}
           >
             <figure>
-              <img
-                src='https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg'
-                alt={each?.name}
-              />
+              <img src={each?.image?.url} alt={each?.name} />
             </figure>
             <div className='card-body'>
-              <h2 className='card-title'>{each?.name}</h2>
+              <h3 className='card-title text-base'>
+                {_.truncate(each?.name, { length: 56 })}
+              </h3>
               <p>
-                <div className='badge badge-ghost'>{each?.category?.name}</div>
+                {_.map(each?.categories, (category, index) => (
+                  <div className='badge badge-accent' key={index}>
+                    {category?.name}
+                  </div>
+                ))}
               </p>
             </div>
           </Link>
