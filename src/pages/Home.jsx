@@ -10,7 +10,11 @@ const Home = () => {
   useEffect(() => {
     api
       .get(
-        `${import.meta.env.VITE_APP_API_URL}/article?page=${page}&size=${size}`
+        `${
+          import.meta.env.VITE_APP_API_URL
+        }/article?page=${page}&size=${size}&place=${
+          import.meta.env.VITE_APP_API_PLACE_ID
+        }`
       )
       .then((result) => {
         console.log("Result.data", result.data);
